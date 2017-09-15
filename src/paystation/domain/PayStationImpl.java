@@ -59,7 +59,7 @@ public class PayStationImpl implements PayStation {
         timeBought = insertedSoFar = 0;
     }
     
-    //@Override
+    @Override
     public int empty() {
         return insertedSoFar;
     }

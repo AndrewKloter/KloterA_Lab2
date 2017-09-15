@@ -145,7 +145,8 @@ public class PayStationImplTest {
             throws IllegalCoinException {
         ps.addPayment(10);
         ps.addPayment(5);
-        ps.empty();
         assertEquals(15, ps.empty());
     }
+    
+   
 }
