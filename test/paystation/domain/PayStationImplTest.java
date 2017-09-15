@@ -139,6 +139,7 @@ public class PayStationImplTest {
                 10, ps.readDisplay());
     }
     
+    
     @Test
     public void returnTotalAmountEntered()
             throws IllegalCoinException {
