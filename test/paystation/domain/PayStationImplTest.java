@@ -148,5 +148,12 @@ public class PayStationImplTest {
         assertEquals(15, ps.empty());
     }
     
-   
+    @Test 
+    public void canceledEntryDoesNotAddAmountReturnedByEmpty()
+            throws IllegalCoinException {
+        ps.addPayment(10);
+        ps.cancel();
+        ps.addPayment(5);
+        assertEquals(5, ps.empty());
+    }
 }
