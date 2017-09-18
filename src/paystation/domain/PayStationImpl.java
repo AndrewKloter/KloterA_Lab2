@@ -1,5 +1,7 @@
 package paystation.domain;
 
+import java.util.*;
+
 /**
  * Implementation of the pay station.
  *
@@ -51,8 +53,26 @@ public class PayStationImpl implements PayStation {
     }
 
     @Override
-    public void cancel() {
+    public Map<Integer, Integer> cancel() {
+        HashMap<Integer, Integer> map = new HashMap<Integer, Integer>() {}; 
+        int key;
+        int value;
+        int amount = insertedSoFar;
+        
+        if ((amount % 25) == 0) {
+            key = 25;
+            value = 1;
+        } else if ((amount % 10) == 0) {
+            key = 10;
+            value = 1;
+        } else {
+            key = 5;
+            value = 1;
+        }
+        map.put(key,value);
+        map.get(5);
         reset();
+        return map;
     }
     
     private void reset() {
