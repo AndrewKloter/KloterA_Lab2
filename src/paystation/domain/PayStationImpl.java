@@ -25,7 +25,7 @@ public class PayStationImpl implements PayStation {
     
     private int insertedSoFar;
     private int timeBought;
-    public HashMap<Integer, Integer> map;
+    public HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
 
     @Override
     public void addPayment(int coinValue)
@@ -39,6 +39,7 @@ public class PayStationImpl implements PayStation {
         }
         insertedSoFar += coinValue;
         timeBought = insertedSoFar / 5 * 2;
+        map.put(coinValue, map.getOrDefault(coinValue, 0)+1);
     }
 
     @Override
@@ -50,7 +51,7 @@ public class PayStationImpl implements PayStation {
     public Receipt buy() {
         Receipt r = new ReceiptImpl(timeBought);
         reset();
-        map.clear();
+        //map.clear();
         return r;
         
     }
@@ -58,7 +59,7 @@ public class PayStationImpl implements PayStation {
     @Override
     public Map<Integer, Integer> cancel() {
         HashMap<Integer, Integer> map = new HashMap<Integer, Integer>() {}; 
-        HashMap<Integer, Integer> newMap = new HashMap<Integer, Integer>() {}; 
+        //HashMap<Integer, Integer> newMap = new HashMap<Integer, Integer>() {}; 
 
         int key;
         int value;
@@ -66,22 +67,20 @@ public class PayStationImpl implements PayStation {
         
         if ((amount % 25) == 0) {
             key = 25;
-            value = (amount / 25);
-            amount = (amount / 25);
+            value = 1;
+            //amount = (amount / 25);
         } else if ((amount % 10) == 0) {
             key = 10;
-            value = (amount / 10);
-            amount = (amount / 10);
+            value = 1;
+            //amount = (amount / 10);
         } else {
             key = 5;
-            value = (amount / 5);
+            value = 1;
         }
         map.put(key,value);
         //map.get(5);
         reset();
-        newMap = map;
-        map.clear();
-        return newMap;
+        return map;
     }
     
     private void reset() {

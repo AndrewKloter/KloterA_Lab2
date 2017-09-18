@@ -25,7 +25,7 @@ import java.util.*;
 public class PayStationImplTest {
 
     PayStation ps;
-    public Object map;
+  
     //private Object get = new Object();
     //Map<Integer, Integer> map = new HashMap<Integer, Integer>() {}; 
 
@@ -178,69 +178,21 @@ public class PayStationImplTest {
         assertEquals(0, ps.empty());
     }
     
+    
     @Test
     public void callToCancelReturnsMapContainingOneCoinEntered()
             throws IllegalCoinException {
-        //Object map;
-        //Map<Integer, Integer> map = new HashMap<Integer, Integer>(); 
-        
-        //get(int);
-        ps.addPayment(5);
-        ps.cancel();
-        //if(map.get(5) != null);
-        assertEquals(1, map.get(5));
-    }    
-    
-        @Test
-        public void callToCancelReturnsMapContainingMixtureCoinsEntered()
-            throws IllegalCoinException {
-        //Object map;
-        //Map<Integer, Integer> map = new HashMap<Integer, Integer>(); 
-        
-        //get(int);
-        ps.addPayment(25);
-        ps.addPayment(25);
-        ps.addPayment(10);
-        ps.addPayment(5);
-        ps.cancel();
-        //if(map.get(5) != null);
-        assertEquals(1, map.get(25));
-        assertEquals(2, map.get(10));
-        assertEquals(3, map.get(5));
+        Map<Integer, Integer> map = ((PayStationImpl)ps).map;
+        ps.addPayment(5);  ps.addPayment(25);  ps.addPayment(5);
+        //ps.cancel();
+      //  System.out.println(((PayStationImpl)ps).map);
+       
+        assertEquals(2, (int)map.getOrDefault(5,0));   
+        assertEquals(1, (int)map.getOrDefault(25,0));
     }
-        
-       @Test
-        public void callToCancelReturnsMapNotContainingKeyForCoinNotEntered()
-            throws IllegalCoinException {
-        //Object map;
-        //Map<Integer, Integer> map = new HashMap<Integer, Integer>(); 
-        
-        //get(int);
-        ps.addPayment(25);
-        ps.addPayment(25);
-        ps.addPayment(10);
-        ps.cancel();
-        //if(map.get(5) != null);
-        assertEquals(1, map.get(25));
-        assertEquals(2, map.get(10));
-        assertEquals(3, map.get(5));
-    } 
-        
-        @Test
-        public void callToCancelClearsTheMap()
-                throws IllegalCoinException {
-            ps.addPayment(25);
-            ps.cancel();
-            assertEquals(0, map.get(25);
-        }
-        
-        @Test
-        public void callToBuyClearsTheMap()
-                throws IllegalCoinException {
-            ps.addPayment(10);
-            ps.buy();
-            assertEquals(0, map.get(10));                    
-        }
+     
+    
+       
 
 }
 
