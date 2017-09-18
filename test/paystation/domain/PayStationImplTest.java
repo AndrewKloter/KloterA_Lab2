@@ -188,7 +188,7 @@ public class PayStationImplTest {
         ps.addPayment(5);
         ps.cancel();
         //if(map.get(5) != null);
-        assertEquals(1, new map.get(5));
+        assertEquals(1, map.get(5));
     }    
     
         @Test
@@ -204,9 +204,9 @@ public class PayStationImplTest {
         ps.addPayment(5);
         ps.cancel();
         //if(map.get(5) != null);
-        assertEquals(1, new map.get(25));
-        assertEquals(2, new map.get(10));
-        assertEquals(3, new map.get(5));
+        assertEquals(1, map.get(25));
+        assertEquals(2, map.get(10));
+        assertEquals(3, map.get(5));
     }
         
        @Test
@@ -221,10 +221,18 @@ public class PayStationImplTest {
         ps.addPayment(10);
         ps.cancel();
         //if(map.get(5) != null);
-        assertEquals(1, new map.get(25));
-        assertEquals(2, new map.get(10));
-        assertEquals(3, new map.get(5));
+        assertEquals(1, map.get(25));
+        assertEquals(2, map.get(10));
+        assertEquals(3, map.get(5));
     } 
+        
+        @Test
+        public void callToCancelClearsTheMap()
+                throws IllegalCoinException {
+            ps.addPayment(25);
+            ps.cancel();
+            assertEquals(0, map.get(25);
+        }
 
 
 

@@ -55,6 +55,8 @@ public class PayStationImpl implements PayStation {
     @Override
     public Map<Integer, Integer> cancel() {
         HashMap<Integer, Integer> map = new HashMap<Integer, Integer>() {}; 
+        HashMap<Integer, Integer> newMap = new HashMap<Integer, Integer>() {}; 
+
         int key;
         int value;
         int amount = insertedSoFar;
@@ -72,9 +74,11 @@ public class PayStationImpl implements PayStation {
             value = (amount / 5);
         }
         map.put(key,value);
-        map.get(5);
+        //map.get(5);
         reset();
-        return map;
+        newMap = map;
+        map.clear();
+        return newMap;
     }
     
     private void reset() {
