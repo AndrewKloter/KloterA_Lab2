@@ -233,8 +233,14 @@ public class PayStationImplTest {
             ps.cancel();
             assertEquals(0, map.get(25);
         }
-
-
+        
+        @Test
+        public void callToBuyClearsTheMap()
+                throws IllegalCoinException {
+            ps.addPayment(10);
+            ps.buy();
+            assertEquals(0, map.get(10));                    
+        }
 
 }
 

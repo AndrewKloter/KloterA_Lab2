@@ -25,6 +25,7 @@ public class PayStationImpl implements PayStation {
     
     private int insertedSoFar;
     private int timeBought;
+    public HashMap<Integer, Integer> map;
 
     @Override
     public void addPayment(int coinValue)
@@ -49,7 +50,9 @@ public class PayStationImpl implements PayStation {
     public Receipt buy() {
         Receipt r = new ReceiptImpl(timeBought);
         reset();
+        map.clear();
         return r;
+        
     }
 
     @Override
