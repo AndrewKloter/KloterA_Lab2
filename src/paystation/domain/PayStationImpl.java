@@ -61,13 +61,15 @@ public class PayStationImpl implements PayStation {
         
         if ((amount % 25) == 0) {
             key = 25;
-            value = 1;
+            value = (amount / 25);
+            amount = (amount / 25);
         } else if ((amount % 10) == 0) {
             key = 10;
-            value = 1;
+            value = (amount / 10);
+            amount = (amount / 10);
         } else {
             key = 5;
-            value = 1;
+            value = (amount / 5);
         }
         map.put(key,value);
         map.get(5);

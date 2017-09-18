@@ -190,6 +190,26 @@ public class PayStationImplTest {
         //if(map.get(5) != null);
         assertEquals(1, new map.get(5));
     }    
+    
+        @Test
+        public void callToCancelReturnsMapContainingMixtureCoinsEntered()
+            throws IllegalCoinException {
+        //Object map;
+        //Map<Integer, Integer> map = new HashMap<Integer, Integer>(); 
+        
+        //get(int);
+        ps.addPayment(25);
+        ps.addPayment(25);
+        ps.addPayment(10);
+        ps.addPayment(5);
+        ps.cancel();
+        //if(map.get(5) != null);
+        assertEquals(1, new map.get(25));
+        assertEquals(2, new map.get(10));
+        assertEquals(3, new map.get(5));
+    }
+        
+     
 
 
 
