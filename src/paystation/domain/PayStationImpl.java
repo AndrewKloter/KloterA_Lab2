@@ -26,7 +26,9 @@ public class PayStationImpl implements PayStation {
     private int insertedSoFar;
     private int timeBought;
     public HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+    public HashMap<Integer, Integer> newMap = new HashMap<Integer, Integer>();
 
+    
     @Override
     public void addPayment(int coinValue)
             throws IllegalCoinException {
@@ -51,7 +53,7 @@ public class PayStationImpl implements PayStation {
     public Receipt buy() {
         Receipt r = new ReceiptImpl(timeBought);
         reset();
-        //map.clear();
+        map.clear();
         return r;
         
     }
@@ -59,7 +61,7 @@ public class PayStationImpl implements PayStation {
     @Override
     public Map<Integer, Integer> cancel() {
         HashMap<Integer, Integer> map = new HashMap<Integer, Integer>() {}; 
-        //HashMap<Integer, Integer> newMap = new HashMap<Integer, Integer>() {}; 
+        HashMap<Integer, Integer> newMap = new HashMap<Integer, Integer>() {}; 
 
         int key;
         int value;
@@ -80,7 +82,9 @@ public class PayStationImpl implements PayStation {
         map.put(key,value);
         //map.get(5);
         reset();
-        return map;
+        newMap = map;
+        map.clear();
+        return newMap;
     }
     
     private void reset() {

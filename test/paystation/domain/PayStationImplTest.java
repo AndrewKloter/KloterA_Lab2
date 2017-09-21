@@ -183,13 +183,78 @@ public class PayStationImplTest {
     public void callToCancelReturnsMapContainingOneCoinEntered()
             throws IllegalCoinException {
         Map<Integer, Integer> map = ((PayStationImpl)ps).map;
-        ps.addPayment(5);  ps.addPayment(25);  ps.addPayment(5);
-        //ps.cancel();
+        ps.addPayment(5);  
+        //ps.addPayment(25);  
+        ps.cancel();
       //  System.out.println(((PayStationImpl)ps).map);
        
-        assertEquals(2, (int)map.getOrDefault(5,0));   
-        assertEquals(1, (int)map.getOrDefault(25,0));
+        assertEquals(1, (int)map.getOrDefault(5,0));   
+        //assertEquals(1, (int)map.getOrDefault(25,0));
     }
+    
+    
+    
+    @Test
+        public void callToCancelReturnsMapContainingMixtureCoinsEntered()
+            throws IllegalCoinException {
+        Map<Integer, Integer> map = ((PayStationImpl)ps).map; 
+        
+        ps.addPayment(25);
+        ps.addPayment(25);
+        ps.addPayment(25);
+        ps.addPayment(10);
+        ps.addPayment(10);
+        ps.addPayment(5);
+        ps.cancel();
+        assertEquals(3, (int)map.get(25));
+        assertEquals(2, (int)map.get(10));
+        assertEquals(1, (int)map.get(5));
+    }
+        
+        
+        @Test
+        public void callToCancelReturnsMapNotContainingKeyForCoinNotEntered()
+            throws IllegalCoinException {
+        Map<Integer, Integer> map = ((PayStationImpl)ps).map; 
+        
+        ps.addPayment(25);
+        ps.addPayment(25);
+        ps.addPayment(10);
+        ps.cancel();
+        //if(map.get(5) != null);
+        assertEquals(2, (int)map.get(25));
+        assertEquals(1, (int)map.get(10));
+        //assertEquals(0, (int)map.get(5));
+    }
+        
+        
+        //When the map is cleared, all values in it will be null, 
+            //so when testing, we expect to get a null pointer exception.
+        @Test(expected=NullPointerException.class)
+        public void callToCancelClearsTheMap()
+                throws IllegalCoinException {
+        Map<Integer, Integer> newMap = ((PayStationImpl)ps).newMap; 
+
+            ps.addPayment(25);
+            ps.cancel();
+            assertEquals(0, (int)newMap.get(25));
+        }
+        
+        
+        //When the map is cleared, all values in it will be null, 
+            //so when testing, we expect to get a null pointer exception.
+        @Test(expected=NullPointerException.class)
+        public void callToBuyClearsTheMap()
+                throws IllegalCoinException {
+        Map<Integer, Integer> map = ((PayStationImpl)ps).map; 
+
+            ps.addPayment(10);
+            ps.buy();
+            assertEquals(0, (int)map.get(10));                    
+        }
+
+
+
      
     
        
