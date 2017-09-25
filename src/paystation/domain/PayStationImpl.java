@@ -25,9 +25,26 @@ public class PayStationImpl implements PayStation {
     
     private int insertedSoFar;
     private int timeBought;
+    private RateStrategy rateStrategy;
     public HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
     public HashMap<Integer, Integer> newMap = new HashMap<Integer, Integer>();
+    
+    //Have to change the constructor to implement rateStrategy.
+     public PayStationImpl( RateStrategy rateStrategy) {
+        this.rateStrategy = rateStrategy;
+    } 
 
+    
+
+  
+
+  
+
+     /*
+    public PayStationImpl() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+*/
     
     @Override
     public void addPayment(int coinValue)
@@ -40,8 +57,8 @@ public class PayStationImpl implements PayStation {
                 throw new IllegalCoinException("Invalid coin: " + coinValue);
         }
         insertedSoFar += coinValue;
-        timeBought = insertedSoFar / 5 * 2;
-        map.put(coinValue, map.getOrDefault(coinValue, 0)+1);
+        timeBought = rateStrategy.calculateTime(insertedSoFar);
+        //map.put(coinValue, map.getOrDefault(coinValue, 0)+1); 
     }
 
     @Override
@@ -99,3 +116,41 @@ public class PayStationImpl implements PayStation {
         return total;
     }
 }
+    
+    /*
+     public static void main(String[] args) throws IllegalCoinException {
+         PayStationImpl psi = new PayStationImpl();
+
+        System.out.println("Hello, select your operation: "
+                + "\nInsert 1 for Deposit"
+                + "\nInsert 2 for Display"
+                + "\nInsert 3 for Buy Ticket"
+                + "\nInsert 4 for Cancel"
+                + "\nInsert 5 for Change Rate Strategy");
+        Scanner operation = new Scanner(System.in);
+        //char choice = operation.nextLine();
+        int choice = operation.nextInt();
+        System.out.println("You chose: " + choice);
+        
+        //int choiceString;
+        switch (choice) {
+            case 1: 
+                System.out.println("Deposit your coins.");
+                Scanner coinValue = new Scanner(System.in);
+                int value = coinValue.nextInt();
+                psi.addPayment(value);
+                break;
+            case 2: ;
+                break;
+            case 3: ;
+                break;
+            case 4: ;
+                break;
+            case 5: ;
+                break;
+        }
+    }
+    
+}
+*/
+

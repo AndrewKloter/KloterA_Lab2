@@ -26,13 +26,10 @@ public class PayStationImplTest {
 
     PayStation ps;
   
-    //private Object get = new Object();
-    //Map<Integer, Integer> map = new HashMap<Integer, Integer>() {}; 
-
 
     @Before
     public void setup() {
-        ps = new PayStationImpl();
+        ps = new PayStationImpl(new LinearRateStrategy() );
     }
 
     /**
@@ -188,8 +185,10 @@ public class PayStationImplTest {
         ps.cancel();
       //  System.out.println(((PayStationImpl)ps).map);
        
-        assertEquals(1, (int)map.getOrDefault(5,0));   
+        //assertEquals(1, (int)map.getOrDefault(5,0));   
         //assertEquals(1, (int)map.getOrDefault(25,0));
+        assertEquals(1, (int)map.get(5));
+
     }
     
     
@@ -253,10 +252,8 @@ public class PayStationImplTest {
             assertEquals(0, (int)map.get(10));                    
         }
 
-
-
-     
-    
+        
+       
        
 
 }

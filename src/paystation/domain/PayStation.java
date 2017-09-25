@@ -23,6 +23,9 @@ import java.util.*;
 
 public interface PayStation {
 
+    
+   
+    
     /**
      * Insert coin into the pay station and adjust state accordingly.
      *
