@@ -22,6 +22,36 @@ import java.util.*;
  * purposes. For any commercial use, see http://www.baerbak.com/
  */
 public class PayStationImpl implements PayStation {
+    private RateStrategy rateStrategyWeekday;
+    private RateStrategy rateStrategyWeekend;
+    
+    protected int calculateLinearTime(int amount) {
+        return amount / 5 * 2;
+    }
+    
+    protected int calculateProgressiveTime(int amount) {
+        int time = 0;
+        System.out.println(amount);
+        //amount = amount;    //Must do this because in PayStationImpl I do insertedSoFar / 5 * 2. So this counteracts that.
+        if (amount >= 150) { // from 1st to 2nd hour
+            amount -= 150;
+            time = 60 /*minutes*/ + amount * 3 / 10;
+        } else { // up to 1st hour
+            time = amount;
+        }
+        return time;
+    }
+
+    private boolean isWeekend() {
+        Date d = new Date();
+        Calendar c = new GregorianCalendar();
+        c.setTime(d);
+        int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
+        return ( dayOfWeek == Calendar.SATURDAY
+                ||
+                dayOfWeek == Calendar.SUNDAY);
+    }
+    
     
     private int insertedSoFar;
     private int timeBought;
@@ -30,31 +60,30 @@ public class PayStationImpl implements PayStation {
     public HashMap<Integer, Integer> newMap = new HashMap<Integer, Integer>();
     
     //Have to change the constructor to implement rateStrategy.
-     public PayStationImpl( RateStrategy rateStrategy) {
-        this.rateStrategy = rateStrategy;
-    } 
+     public PayStationImpl( RateStrategy rateStrategyWeekday,
+                            RateStrategy rateStrategyWeekend) {
+        this.rateStrategyWeekday = rateStrategyWeekday;
+        this.rateStrategyWeekend = rateStrategyWeekend;
 
-    
-
-  
-
-  
-
-     /*
-    public PayStationImpl() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-*/
     
     @Override
     public void addPayment(int coinValue)
             throws IllegalCoinException {
-        switch (coinValue) {
-            case 5: break;
-            case 10: break;
-            case 25: break;
-            default:
-                throw new IllegalCoinException("Invalid coin: " + coinValue);
+        
+        if (isWeekend() ) {
+            timeBought = rateStrategyWeekend.calculateTime(insertedSoFar);
+        } else {
+            timeBought = rateStrategyWeekday.calculateTime(insertedSoFar);
+
+            
+
+        //switch (coinValue) {
+          //  case 5: break;
+           // case 10: break;
+           // case 25: break;
+           // default:
+               // throw new IllegalCoinException("Invalid coin: " + coinValue);
         }
         insertedSoFar += coinValue;
         timeBought = rateStrategy.calculateTime(insertedSoFar);
