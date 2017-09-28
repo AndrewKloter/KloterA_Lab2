@@ -23,12 +23,8 @@ import java.util.*;
 
 public interface PayStation {
 
-    
-   
-    
     /**
      * Insert coin into the pay station and adjust state accordingly.
-     *
      * @param coinValue is an integer value representing the coin in cent. That
      * is, a quarter is coinValue=25, etc.
      * @throws IllegalCoinException in case coinValue is not a valid coin value
@@ -56,6 +52,10 @@ public interface PayStation {
     
     
     public int empty();
+    
+    //extend paystation so it can be reconfigured at run-time by providing it with
+    // a new factory object. You will have to introduce a new method in the PayStaion interface:
+    
 
     /**
      * Cancel the present transaction. Resets the machine for a new transaction.

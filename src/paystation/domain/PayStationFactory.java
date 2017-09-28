@@ -11,7 +11,12 @@ package paystation.domain;
  */
 public interface PayStationFactory {
     
+    //Create an instance of the rate strategy to use
     public RateStrategy createRateStrategy();
     
+    //Create an instance of the receipt
     public Receipt createReceipt(int parkingTime);
+    
+    //Create an instance of DisplayStrategy
+    public DisplayStrategy createDisplayStrategy();
 }

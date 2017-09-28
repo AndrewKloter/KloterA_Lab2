@@ -9,20 +9,17 @@ package paystation.domain;
  *
  * @author tuf63516
  */
-class BetaTownFactory implements PayStationFactory {
+class AlphaTownFactory implements PayStationFactory {
     @Override
     public RateStrategy createRateStrategy() {
-        return new ProgressiveRateStrategy();
+        return new LinearRateStrategy();
     }
-    
     @Override
     public Receipt createReceipt(int parkingTime) {
-        return new StandardReceipt(parkingTime, true);
+        return new StandardReceipt(parkingTime);
     }
-    
     @Override
     public DisplayStrategy createDisplayStrategy() {
-        return new ValueDisplayStrategy(); 
+        return new TimeDisplayStrategy();
     }
-    
 }

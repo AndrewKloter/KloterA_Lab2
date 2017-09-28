@@ -19,18 +19,18 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 
 import java.util.*;
+import java.io.*;
 
 
 
 public class PayStationImplTest {
 
     PayStation ps;
-  
-
+ 
     @Before
     public void setup() {
-    RateStrategy rs = new AlternatingRateStrategy(new LinearRateStrategy(), 
-                                                  new ProgressiveRateStrategy() );
+    //RateStrategy rs = new AlternatingRateStrategy(new LinearRateStrategy(), 
+              //                                    new ProgressiveRateStrategy() );
     ps = new PayStationImpl(new TestTownFactory() );
     //ps = new PayStationImpl(new LinearRateStrategy() );
     }
@@ -43,7 +43,7 @@ public class PayStationImplTest {
             throws IllegalCoinException {
         ps.addPayment(5);
         assertEquals("Should display 2 min for 5 cents",
-                2, ps.readDisplay());
+                5, ps.readDisplay());
     }
 
     /**
@@ -53,7 +53,7 @@ public class PayStationImplTest {
     public void shouldDisplay10MinFor25Cents() throws IllegalCoinException {
         ps.addPayment(25);
         assertEquals("Should display 10 min for 25 cents",
-                10, ps.readDisplay());
+                25, ps.readDisplay());
     }
 
     /**
@@ -73,7 +73,7 @@ public class PayStationImplTest {
         ps.addPayment(10);
         ps.addPayment(25);
         assertEquals("Should display 14 min for 10+25 cents",
-                14, ps.readDisplay());
+                35, ps.readDisplay());
     }
 
     /**
@@ -90,7 +90,7 @@ public class PayStationImplTest {
         assertNotNull("Receipt reference cannot be null",
                 receipt);
         assertEquals("Receipt value must be 16 min.",
-                16, receipt.value());
+                5+10+25, receipt.value());
     }
 
     /**
@@ -109,7 +109,7 @@ public class PayStationImplTest {
 
         Receipt receipt;
         receipt = ps.buy();
-        assertEquals(40, receipt.value());
+        assertEquals((5*10 + 2*25), receipt.value());
     }
 
     /**
@@ -127,10 +127,10 @@ public class PayStationImplTest {
         ps.addPayment(10);
         ps.addPayment(25);
         assertEquals("Next add payment should display correct time",
-                14, ps.readDisplay());
+                10+25, ps.readDisplay());
         Receipt r = ps.buy();
         assertEquals("Next buy should return valid receipt",
-                14, r.value());
+                10+25, r.value());
         assertEquals("Again, display should be cleared",
                 0, ps.readDisplay());
     }
@@ -147,7 +147,7 @@ public class PayStationImplTest {
                 0, ps.readDisplay());
         ps.addPayment(25);
         assertEquals("Insert after cancel should work",
-                10, ps.readDisplay());
+                25, ps.readDisplay());
     }
     
     
@@ -258,7 +258,7 @@ public class PayStationImplTest {
         
         
         
-        
+        /*
         @Test
         public void shouldIntegrateProgressiveRateCorrectly() 
                 throws IllegalCoinException {
@@ -267,6 +267,7 @@ public class PayStationImplTest {
             
             assertEquals("Progressive rate: 2$ should give 75 min ", 75 , ps.readDisplay() );
         }
+        */
         
          private void addHalfDollar() throws IllegalCoinException {
         ps.addPayment(25); 
@@ -278,7 +279,34 @@ public class PayStationImplTest {
         addHalfDollar();    
     }
 
-    /*
+    
+    
+    @Test
+    public void shouldPrintReceiptsCorrectly() {
+        Receipt receipt = new StandardReceipt(30);
+        
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        PrintStream ps = new PrintStream(baos);
+        receipt.print(ps);
+        
+        String output = baos.toString();
+        
+        String[] lines = output.split("\n");
+        
+        assertEquals(5, lines.length);
+        
+        assertEquals("---", lines[0].substring(0,3) );
+        assertEquals("---", lines[4].substring(0,3) );
+        assertEquals("P A R K I N G", lines[1].substring(9,22) );
+        assertEquals("030", lines[2].substring(22, 25) );
+        
+        String parkedAtString = lines[3].substring(28, 33);
+        assertEquals(':', parkedAtString.charAt(2) );
+        
+        Integer.parseInt(parkedAtString.substring(0,2) );
+        Integer.parseInt(parkedAtString.substring(3,5) );
+    }
+    
     @Test
     public void shouldAcceptLegalCoins()
             throws IllegalCoinException {
@@ -288,10 +316,18 @@ public class PayStationImplTest {
         
         assertEquals("Should accept 5, 10, and 25 cents", 5+10+25, ps.readDisplay() );
     }
-*/
-        
-       
-       
-
+    
+      /** Test that the bar code receipt has a bar code line */
+  @Test public void shouldPrintBarCodeReceiptCorrectly() {
+    Receipt receipt = new StandardReceipt(30, true);
+    
+    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+    PrintStream ps = new PrintStream(baos);
+    receipt.print(ps);
+    String output = baos.toString();
+    String[] lines = output.split("\n");
+    assertEquals( "Bar code receipts must be 6 lines long",
+                  6, lines.length );
+  }
 }
 

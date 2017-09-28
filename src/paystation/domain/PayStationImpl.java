@@ -30,11 +30,14 @@ public class PayStationImpl implements PayStation {
 
     private RateStrategy rateStrategy;
     
+    private DisplayStrategy displayStrategy;
+    
     private PayStationFactory factory;
     
     public PayStationImpl(PayStationFactory factory) {
         this.factory = factory;
         this.rateStrategy = factory.createRateStrategy();
+        this.displayStrategy = factory.createDisplayStrategy();
         reset();
     }
     
@@ -59,7 +62,8 @@ public class PayStationImpl implements PayStation {
     
     @Override
     public int readDisplay() {
-        return timeBought;
+        return displayStrategy.calculateOutput(timeBought);
+        //return timeBought;
     }
     
     @Override

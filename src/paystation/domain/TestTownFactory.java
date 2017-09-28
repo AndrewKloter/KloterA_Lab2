@@ -9,6 +9,8 @@ package paystation.domain;
  *
  * @author tuf63516
  */
+
+
 class TestTownFactory implements PayStationFactory {
     @Override
     public RateStrategy createRateStrategy() {
@@ -18,6 +20,10 @@ class TestTownFactory implements PayStationFactory {
     @Override
     public Receipt createReceipt(int parkingTime) {
         return new StandardReceipt(parkingTime);
+    }
+    @Override
+    public DisplayStrategy createDisplayStrategy() {
+        return new ValueDisplayStrategy();
     }
     
 }
