@@ -34,6 +34,7 @@ public class PayStationImpl implements PayStation {
         this.rateStrategy = rateStrategy;
     }
     
+    @Override
     public void addPayment(int coinValue)
             throws IllegalCoinException {
         switch(coinValue) {

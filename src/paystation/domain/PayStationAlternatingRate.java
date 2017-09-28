@@ -14,18 +14,35 @@ import java.util.GregorianCalendar;
  */
 
 public class PayStationAlternatingRate extends PayStationImpl {
-    private PayStation psLinear, psProgressive;
+    //private PayStation psLinear, psProgressive;
     
+    //Need this because no default constructor on PayStaionImpl (super class for PayStationAlternatingRate.
+        //So, have to call super() at the first position in my subclass (PayStaionAlternatingRate) constructor.
+     PayStationAlternatingRate(RateStrategy rs) {
+        super(rs);
+    }
+     
+    //Here we are instantiating (creating an instance of)/creating an object of the LinearRateStrategy class.
+    LinearRateStrategy LRStrategy = new LinearRateStrategy();
+    ProgressiveRateStrategy PRStrategy = new ProgressiveRateStrategy();
     
-    
+    private boolean isWeekend() {
+        Date d = new Date();
+        Calendar c = new GregorianCalendar();
+        c.setTime(d);
+        int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
+        return (dayOfWeek == Calendar.SATURDAY
+                ||
+                dayOfWeek == Calendar.SUNDAY);
+    }
     
     @Override
     protected int calculateTime(int amount) {
         int time;
         if (isWeekend() ) {
-            time = psProgressive.calculateTime(amount);
+            time = LRStrategy.calculateTime(amount);
         } else {
-            time = psLinear.calculateTime(amount);
+            time = PRStrategy.calculateTime(amount);
         }
         return time;
     }
