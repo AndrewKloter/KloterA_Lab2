@@ -31,7 +31,7 @@ public class PayStationImplTest {
     public void setup() {
     RateStrategy rs = new AlternatingRateStrategy(new LinearRateStrategy(), 
                                                   new ProgressiveRateStrategy() );
-    ps = new PayStationImpl(rs);
+    ps = new PayStationImpl(new TestTownFactory() );
     //ps = new PayStationImpl(new LinearRateStrategy() );
     }
 

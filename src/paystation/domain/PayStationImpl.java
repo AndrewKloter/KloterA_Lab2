@@ -30,6 +30,14 @@ public class PayStationImpl implements PayStation {
 
     private RateStrategy rateStrategy;
     
+    private PayStationFactory factory;
+    
+    public PayStationImpl(PayStationFactory factory) {
+        this.factory = factory;
+        this.rateStrategy = factory.createRateStrategy();
+        reset();
+    }
+    
     public PayStationImpl(RateStrategy rateStrategy) {
         this.rateStrategy = rateStrategy;
     }
@@ -56,7 +64,7 @@ public class PayStationImpl implements PayStation {
     
     @Override
     public Receipt buy() {
-        Receipt r = new ReceiptImpl(timeBought);
+        Receipt r = factory.createReceipt(timeBought);
         //timeBought = insertedSoFar = 0;
         reset();
         return r;

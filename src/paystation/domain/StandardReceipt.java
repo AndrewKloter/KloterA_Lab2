@@ -12,11 +12,11 @@
  */
 package paystation.domain;
 
-public class ReceiptImpl implements Receipt {
+public class StandardReceipt implements Receipt {
 
     private int value;
 
-    public ReceiptImpl(int value) {
+    public StandardReceipt(int value) {
         this.value = value;
     }
 

@@ -7,14 +7,11 @@ package paystation.domain;
 
 /**
  *
- * @author Andrew
+ * @author tuf63516
  */
-
-//One cent = one minute
-public class One2OneRateStrategy implements RateStrategy {
-    @Override
-    public int calculateTime(int amount) {
-        return 0;//amount * 5 / 2;
-    }
+public interface PayStationFactory {
     
+    public RateStrategy createRateStrategy();
+    
+    public Receipt createReceipt(int parkingTime);
 }
