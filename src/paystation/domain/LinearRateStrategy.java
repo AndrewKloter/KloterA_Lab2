@@ -9,9 +9,10 @@ package paystation.domain;
  *
  * @author Andrew
  */
-public class LinearRateStrategy extends PayStationImpl {
-    protected int calculateTime(int amount) {
-        return super.calculateLinearTime(amount);
+public class LinearRateStrategy implements RateStrategy {
+    public int calculateTime(int amount) {
+        return amount * 2 / 5;
+        //return 0;
     }
     //public int calculateTime(int amount) {
        // return amount / 5 * 2;

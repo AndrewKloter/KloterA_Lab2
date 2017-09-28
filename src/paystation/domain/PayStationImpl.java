@@ -22,6 +22,74 @@ import java.util.*;
  * purposes. For any commercial use, see http://www.baerbak.com/
  */
 public class PayStationImpl implements PayStation {
+    private int insertedSoFar;
+    private int timeBought;
+    
+    public HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+    public HashMap<Integer, Integer> newMap = new HashMap<Integer, Integer>();
+
+    private RateStrategy rateStrategy;
+    
+    public PayStationImpl(RateStrategy rateStrategy) {
+        this.rateStrategy = rateStrategy;
+    }
+    
+    public void addPayment(int coinValue)
+            throws IllegalCoinException {
+        switch(coinValue) {
+            case 5: break;
+            case 10: break;
+            case 25: break;
+            default: 
+                throw new IllegalCoinException("Invalid coin: " + coinValue);
+        }
+        insertedSoFar += coinValue;
+        timeBought = rateStrategy.calculateTime(insertedSoFar);
+        //timeBought = insertedSoFar / 5 * 2;
+    }
+    
+    @Override
+    public int readDisplay() {
+        return timeBought;
+    }
+    
+    @Override
+    public Receipt buy() {
+        Receipt r = new ReceiptImpl(timeBought);
+        //timeBought = insertedSoFar = 0;
+        reset();
+        return r;
+        //return new ReceiptImpl(timeBought);
+    }
+    
+    @Override
+    public void cancel() {
+        reset();
+        //timeBought = insertedSoFar = 0;
+    }
+    
+
+    private void reset() {
+        timeBought = insertedSoFar = 0;
+    }
+    
+    //@Override
+    protected int calculateTime(int paidSoFar) {
+        return paidSoFar * 2 / 5;
+    }
+    
+    @Override
+    public int empty() {
+        int total = 0;
+        total = insertedSoFar;
+        reset();
+        return total;
+    }
+    
+    
+    
+}
+   /*
     private RateStrategy rateStrategyWeekday;
     private RateStrategy rateStrategyWeekend;
     
@@ -35,7 +103,7 @@ public class PayStationImpl implements PayStation {
         //amount = amount;    //Must do this because in PayStationImpl I do insertedSoFar / 5 * 2. So this counteracts that.
         if (amount >= 150) { // from 1st to 2nd hour
             amount -= 150;
-            time = 60 /*minutes*/ + amount * 3 / 10;
+            time = 60 /*minutes + amount * 3 / 10;
         } else { // up to 1st hour
             time = amount;
         }
@@ -75,7 +143,8 @@ public class PayStationImpl implements PayStation {
             timeBought = rateStrategyWeekend.calculateTime(insertedSoFar);
         } else {
             timeBought = rateStrategyWeekday.calculateTime(insertedSoFar);
-
+*/
+    /*
             
 
         //switch (coinValue) {
@@ -145,7 +214,7 @@ public class PayStationImpl implements PayStation {
         return total;
     }
 }
-    
+    */
     /*
      public static void main(String[] args) throws IllegalCoinException {
          PayStationImpl psi = new PayStationImpl();

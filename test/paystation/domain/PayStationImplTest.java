@@ -29,7 +29,10 @@ public class PayStationImplTest {
 
     @Before
     public void setup() {
-        ps = new PayStationImpl(new LinearRateStrategy() );
+    RateStrategy rs = new AlternatingRateStrategy(new LinearRateStrategy(), 
+                                                  new ProgressiveRateStrategy() );
+    ps = new PayStationImpl(rs);
+    //ps = new PayStationImpl(new LinearRateStrategy() );
     }
 
     /**
@@ -251,7 +254,41 @@ public class PayStationImplTest {
             ps.buy();
             assertEquals(0, (int)map.get(10));                    
         }
+        
+        
+        
+        
+        
+        @Test
+        public void shouldIntegrateProgressiveRateCorrectly() 
+                throws IllegalCoinException {
+            ps = new PayStationImpl(new ProgressiveRateStrategy() );
+            addOneDollar(); addOneDollar();
+            
+            assertEquals("Progressive rate: 2$ should give 75 min ", 75 , ps.readDisplay() );
+        }
+        
+         private void addHalfDollar() throws IllegalCoinException {
+        ps.addPayment(25); 
+        ps.addPayment(25);
+    }
+    
+    private void addOneDollar() throws IllegalCoinException {
+        addHalfDollar(); 
+        addHalfDollar();    
+    }
 
+    /*
+    @Test
+    public void shouldAcceptLegalCoins()
+            throws IllegalCoinException {
+        ps.addPayment(5);
+        ps.addPayment(10);
+        ps.addPayment(25);
+        
+        assertEquals("Should accept 5, 10, and 25 cents", 5+10+25, ps.readDisplay() );
+    }
+*/
         
        
        

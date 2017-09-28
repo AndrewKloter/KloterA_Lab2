@@ -50,12 +50,16 @@ public interface PayStation {
      * @return a valid parking receipt object.
      */
     public Receipt buy();
+    
+    
+    public void cancel();
+    
+    
+    public int empty();
 
     /**
      * Cancel the present transaction. Resets the machine for a new transaction.
      */
-    public Map<Integer, Integer> cancel();
+    //public Map<Integer, Integer> cancel();
 
-    
-    public int empty();
 }

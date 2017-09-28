@@ -14,7 +14,7 @@ package paystation.domain;
 public class One2OneRateStrategy implements RateStrategy {
     @Override
     public int calculateTime(int amount) {
-        return amount;
+        return amount * 5 / 2;
     }
     
 }
