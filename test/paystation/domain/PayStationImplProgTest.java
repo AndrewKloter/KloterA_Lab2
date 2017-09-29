@@ -56,57 +56,5 @@ public class PayStationImplProgTest {
     public void shouldGive240MinFor950cent() 
             throws IllegalCoinException {
         assertEquals(4 * 60 /*minutes*/ , rs.calculateTime(950) );
-    }
-        
-        
-    @Test
-    public void shouldIntegrateProgressiveRateCorrectly()
-            throws IllegalCoinException {
-        //ps = new PayStationImpl(new ProgressiveRateStrategy() );
-        
-        //assertEquals( "Progressive Rate: 2$ should give 75 min ", 75, ps.readDisplay() );
-    }
-    
-    
-    
-    
-    
-    //These two dollar methods arent needed since we now implement an rs RateStrategy instance.
-    /*
-    private void addHalfDollar() throws IllegalCoinException {
-        ps.addPayment(25); 
-        ps.addPayment(25);
-    }
-    
-    private void addOneDollar() throws IllegalCoinException {
-        addHalfDollar(); 
-        addHalfDollar();    
-    }
-    */
-   
-    //Old code before i changed public void setUp part. Book pg 139.
-    /* 
-    @Test
-    public void shouldDisplay60MinFor150Cent()
-            throws IllegalCoinException {
-        //first hour: $1.5
-        addOneDollar();
-        addHalfDollar();
-               
-        assertEquals(60 /*minutes, (first hour), ps.readDisplay() );
-    }
-    
-    //Testing ability to calculate second hour pricing.
-    @Test 
-    public void shouldDisplay120MinutesFor350Cent()
-            throws IllegalCoinException {
-        //Two hours: $1.5 + $2.0
-        addOneDollar();
-        addOneDollar();
-        addOneDollar();
-        addHalfDollar();
-        
-        assertEquals(2 * 60 /*minutes, (2 hours), ps.readDisplay() );
-    }*/
-    
+    } 
 }

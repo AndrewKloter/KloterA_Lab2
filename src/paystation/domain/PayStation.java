@@ -19,7 +19,6 @@
  */
 package paystation.domain;
 
-import java.util.*;
 
 public interface PayStation {
 
@@ -47,19 +46,11 @@ public interface PayStation {
      */
     public Receipt buy();
     
-    
     public void cancel();
     
-    
     public int empty();
-    
-    //extend paystation so it can be reconfigured at run-time by providing it with
-    // a new factory object. You will have to introduce a new method in the PayStaion interface:
-    
+        
 
-    /**
-     * Cancel the present transaction. Resets the machine for a new transaction.
-     */
     //public Map<Integer, Integer> cancel();
 
 }
