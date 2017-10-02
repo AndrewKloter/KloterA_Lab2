@@ -18,8 +18,8 @@ public class PayStationAlternatingRate extends PayStationImpl {
     
     //Need this because no default constructor on PayStaionImpl (super class for PayStationAlternatingRate.
         //So, have to call super() at the first position in my subclass (PayStaionAlternatingRate) constructor.
-     PayStationAlternatingRate(RateStrategy rs) {
-        super(rs);
+     PayStationAlternatingRate() {
+        super();
     }
      
     //Here we are instantiating (creating an instance of)/creating an object of the LinearRateStrategy class.

@@ -25,15 +25,16 @@ public class PayStationImpl implements PayStation {
     private int insertedSoFar;
     private int timeBought;
     
-    public HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
-    public HashMap<Integer, Integer> newMap = new HashMap<Integer, Integer>();
+    //public HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+    //public HashMap<Integer, Integer> newMap = new HashMap<Integer, Integer>();
 
-    private RateStrategy rateStrategy;
+    private RateStrategy rateStrategy = new LinearRateStrategy();
     
-    private DisplayStrategy displayStrategy;
+    //private DisplayStrategy displayStrategy;
     
-    private PayStationFactory factory;
+    //private PayStationFactory factory;
     
+    /*
     public PayStationImpl(PayStationFactory factory) {
         this.factory = factory;
         this.rateStrategy = factory.createRateStrategy();
@@ -44,6 +45,8 @@ public class PayStationImpl implements PayStation {
     public PayStationImpl(RateStrategy rateStrategy) {
         this.rateStrategy = rateStrategy;
     }
+    */
+    
     
     @Override
     public void addPayment(int coinValue)
@@ -62,13 +65,13 @@ public class PayStationImpl implements PayStation {
     
     @Override
     public int readDisplay() {
-        return displayStrategy.calculateOutput(timeBought);
-        //return timeBought;
+        //return displayStrategy.calculateOutput(timeBought);
+        return timeBought;
     }
     
     @Override
     public Receipt buy() {
-        Receipt r = factory.createReceipt(timeBought);
+        Receipt r = new StandardReceipt(timeBought);
         //timeBought = insertedSoFar = 0;
         reset();
         return r;
@@ -100,50 +103,15 @@ public class PayStationImpl implements PayStation {
     }
     
     
-   
-     public static void main(String[] args) {
-         
-         
-        //PayStationImpl psi = new PayStationImpl(RateStrategy rs);
-        System.out.println("hello");
-        System.out.println("Hello, select your operation: "
-               + "\nInsert 1 for Deposit"
-               + "\nInsert 2 for Display"
-               + "\nInsert 3 for Buy Ticket"
-               + "\nInsert 4 for Cancel"
-               + "\nInsert 5 for Change Rate Strategy");
-         Scanner operation = new Scanner(System.in);
-        //char choice = operation.nextLine();
-         int choice = operation.nextInt();
-         
-         System.out.println("hello");
-         
-         System.out.println("You chose: " + choice);
+    public void changeRateStrategy(int rs) {
+        if (rs == 1) 
+            rateStrategy = new LinearRateStrategy(); 
+        if (rs == 2) 
+            rateStrategy = new ProgressiveRateStrategy();
+        if (rs == 3)
+            rateStrategy = new AlternatingRateStrategy();
         
-        
-              switch (choice) {
-             case 1: 
-                 System.out.println("Deposit your coins.");
-                 Scanner coinValue = new Scanner(System.in);
-                 int value = coinValue.nextInt();
-                 //1addPayment(value);
-                 break;
-             case 2: ;
-                 break;
-             case 3: 
-                 //PayStationImpl.buy();
-                 break;
-             case 4: ;
-                 break;
-             case 5: 
-                 System.out.println("Which rate Strategy would you like to change to?");;
-                 break;
-         }
-         
     }
-    
-    
-    
-}
+  }
 
 

@@ -22,6 +22,8 @@ public class AlternatingRateStrategy implements RateStrategy {
         //AlternatingRateStrategy in the PayStationImplTest, which is LinearRateStrategy.
     //And the weekendStrategy refers to the second argument passed into 
         //AlternatingRateStrategy in the PayStationImplTest, which is ProgressiveRateStrategy.
+    
+    /*
     public AlternatingRateStrategy(RateStrategy weekdayStrategy, 
                                    RateStrategy weekendStrategy, 
                                    WeekendDecisionStrategy decisionStrategy) {
@@ -30,6 +32,9 @@ public class AlternatingRateStrategy implements RateStrategy {
         this.currentState = null;
         this.decisionStrategy = decisionStrategy;
     }
+*/
+    
+    
     
     @Override
     public int calculateTime(int amount) {

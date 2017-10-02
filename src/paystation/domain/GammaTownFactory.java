@@ -12,9 +12,10 @@ package paystation.domain;
 public class GammaTownFactory implements PayStationFactory {
     @Override
     public RateStrategy createRateStrategy() {
-            return new AlternatingRateStrategy( new LinearRateStrategy(),
+            return new AlternatingRateStrategy(); /*new LinearRateStrategy(),
                                         new ProgressiveRateStrategy(),
                                         new ClockBasedDecisionStrategy() );
+*/
   }
   @Override
     public Receipt createReceipt( int parkingTime ) {

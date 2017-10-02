@@ -10,6 +10,7 @@ package paystation.domain;
  * @author Andrew
  */
 
+
 //One cent = one minute
 public class One2OneRateStrategy implements RateStrategy {
     @Override

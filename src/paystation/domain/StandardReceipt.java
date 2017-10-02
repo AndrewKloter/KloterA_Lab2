@@ -30,7 +30,9 @@ public class StandardReceipt implements Receipt {
     }
     
     @Override
-    public int value() {return value;}
+    public int value() 
+    {return value;}
+    
     @Override
     public void print(PrintStream stream) {
         String valuestring = ""+value;

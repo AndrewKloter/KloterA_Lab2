@@ -15,7 +15,4 @@ public class LinearRateStrategy implements RateStrategy {
         return amount * 2 / 5;
         //return 0;
     }
-    //public int calculateTime(int amount) {
-       // return amount / 5 * 2;
-    //}
 }
