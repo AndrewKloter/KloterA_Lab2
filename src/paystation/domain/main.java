@@ -15,34 +15,42 @@ import java.util.*;
 
 
 public class main {
-    public PayStationFactory factory;
     
-    
-    public static void main(String[] args) 
-            throws IllegalCoinException {
-
-        PayStationImpl psi = new PayStationImpl();
-        
-        System.out.println("Hello, select your operation: "
+    public static void menu() {
+    System.out.println("Hello, select your operation: "
                + "\nInsert 1 for Deposit"
                + "\nInsert 2 for Display"
                + "\nInsert 3 for Buy Ticket"
                + "\nInsert 4 for Cancel"
-               + "\nInsert 5 for Change Rate Strategy");
-         Scanner operation = new Scanner(System.in);
-        //char choice = operation.nextLine();
-         int choice = operation.nextInt();
-         
-         
-         int a = 0;
-         System.out.println("You chose: " + choice);
+               + "\nInsert 5 for Change Rate Strategy");    
+    }
+    
+    public static void main(String[] args) 
+            throws IllegalCoinException {
+
+        int a = 0;
+        PayStationImpl psi = new PayStationImpl();
+        Scanner scan = new Scanner(System.in);
+        int choice;
         
+        while (a == 0) {
+         menu();
+         choice = scan.nextInt();
+         scan.nextLine();
+     //    System.out.println("You chose: " + choice);
               switch(choice) {
+             case 0:
+                 a = 1;
+                 break;
              case 1: 
+                 int value;
                  while (a != 1) {
                  System.out.println("Deposit your coins; 5, 10, or 25. Or enter 0 to exit.");
-                 Scanner coinValue = new Scanner(System.in);
-                 int value = coinValue.nextInt();
+                 //Scanner coinValue = new Scanner(System.in);
+                 value = scan.nextInt();
+                 scan.nextLine();
+                 
+                 //value = coinValue.nextInt();
                  
                  if (value != 0) {
                      psi.addPayment(value);
@@ -50,13 +58,16 @@ public class main {
                      a = 1;
                     }
                  }
+                 a = 0;
                  break;
-             case 2: ;
+             case 2: 
+                 ;
                  break;
              case 3: 
                  //PayStationImpl.buy();
                  break;
-             case 4: ;
+             case 4: 
+                 ;
                  break;
              case 5: 
                  System.out.println("Which rate Strategy would you like to change to?" 
@@ -74,6 +85,7 @@ public class main {
                      psi.changeRateStrategy(3);
                  }
                  break;
+         }
          }
     }
     
