@@ -19,6 +19,7 @@
  */
 package paystation.domain;
 
+import java.util.*;
 
 public interface PayStation {
 
@@ -46,11 +47,12 @@ public interface PayStation {
      */
     public Receipt buy();
     
-    public void cancel();
+    //public void cancel();
+    public HashMap<Integer, Integer> cancel();
     
     public int empty();
         
 
-    //public Map<Integer, Integer> cancel();
+    
 
 }

@@ -20,6 +20,7 @@ public class StandardReceipt implements Receipt {
     private int value;
     private boolean withBarCode;
 
+    
     public StandardReceipt(int value, boolean withBarCode) {
         this.value = value;
         this.withBarCode = withBarCode;
@@ -28,6 +29,7 @@ public class StandardReceipt implements Receipt {
     public StandardReceipt(int value) {
         this(value, false);
     }
+
     
     @Override
     public int value() 

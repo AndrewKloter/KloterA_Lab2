@@ -25,6 +25,8 @@ public class PayStationImpl implements PayStation {
     private int insertedSoFar;
     private int timeBought;
     
+    private HashMap map = new HashMap();
+    
     //public HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
     //public HashMap<Integer, Integer> newMap = new HashMap<Integer, Integer>();
 
@@ -34,7 +36,7 @@ public class PayStationImpl implements PayStation {
     
     //private PayStationFactory factory;
     
-    /*
+    /* 
     public PayStationImpl(PayStationFactory factory) {
         this.factory = factory;
         this.rateStrategy = factory.createRateStrategy();
@@ -58,6 +60,13 @@ public class PayStationImpl implements PayStation {
             default: 
                 throw new IllegalCoinException("Invalid coin: " + coinValue);
         }
+        Integer c = coinValue;
+        Integer n = 1;
+        if (map.containsKey(c)) {
+            n = (Integer)map.get(c);
+            n++;
+        }
+        map.put(c, n);
         insertedSoFar += coinValue;
         timeBought = rateStrategy.calculateTime(insertedSoFar);
         //timeBought = insertedSoFar / 5 * 2;
@@ -73,20 +82,24 @@ public class PayStationImpl implements PayStation {
     public Receipt buy() {
         Receipt r = new StandardReceipt(timeBought);
         //timeBought = insertedSoFar = 0;
-        reset();
+        //reset();
         return r;
         //return new ReceiptImpl(timeBought);
     }
     
     @Override
-    public void cancel() {
+    public HashMap<Integer, Integer> cancel() {
+        HashMap m = (HashMap)map.clone();
+        m.putAll(map);
         reset();
+        return m;
         //timeBought = insertedSoFar = 0;
     }
     
 
     private void reset() {
         timeBought = insertedSoFar = 0;
+        map.clear();
     }
     
     //@Override

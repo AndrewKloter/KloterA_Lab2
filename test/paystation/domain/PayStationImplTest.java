@@ -31,8 +31,8 @@ public class PayStationImplTest {
     public void setup() {
     //RateStrategy rs = new AlternatingRateStrategy(new LinearRateStrategy(), 
               //                                    new ProgressiveRateStrategy() );
-    ps = new PayStationImpl(new TestTownFactory() );
-    //ps = new PayStationImpl(new LinearRateStrategy() );
+    //ps = new PayStationImpl(new TestTownFactory() );
+    ps = new PayStationImpl();
     }
 
     /**
@@ -178,7 +178,7 @@ public class PayStationImplTest {
         assertEquals(0, ps.empty());
     }
     
-    
+    /*
     @Test
     public void callToCancelReturnsMapContainingOneCoinEntered()
             throws IllegalCoinException {
@@ -255,7 +255,7 @@ public class PayStationImplTest {
             assertEquals(0, (int)map.get(10));                    
         }
         
-        
+        */
         
         
         /*
